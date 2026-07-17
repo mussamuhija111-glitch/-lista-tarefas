@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Minha Lista de Tarefas</title>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background-color: #eaeaea;
+  margin: 0;
+  padding: 20px;
+}
+.todo-app {
+  background-color: white;
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  text-align: center;
+}
+.entrada {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+.entrada input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+.entrada button {
+  background-color: #4a90d9;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+#listaTarefas {
+  list-style: none;
+  padding: 0;
+  text-align: left;
+}
+#listaTarefas li {
+  background-color: #f0f0f0;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+.concluida {
+  text-decoration: line-through;
+  color: #999;
+  background-color: #e0f0e0;
+}
+.apagar {
+  background: none;
+  border: none;
+  color: #c0392b;
+  font-size: 18px;
+  cursor: pointer;
+  padding: 0 5px;
+}
+</style>
+</head>
+<body>
+
+<div class="todo-app">
+  <h1>Minha Lista de Tarefas</h1>
+
+  <div class="entrada">
+    <input type="text" id="novaTarefa" placeholder="Digite uma tarefa...">
+    <button onclick="adicionarTarefa()">Adicionar</button>
+  </div>
+
+  <ul id="listaTarefas">
+    <!-- as tarefas vão aparecer aqui -->
+  </ul>
+</div>
+
+<script>
+function adicionarTarefa() {
+  const input = document.getElementById("novaTarefa");
+  const texto = input.value.trim();
+
+  if (texto === "") {
+    return;
+  }
+
+  const li = document.createElement("li");
+
+  const span = document.createElement("span");
+  span.textContent = texto;
+  span.onclick = function() {
+    li.classList.toggle("concluida");
+  };
+
+  const botaoApagar = document.createElement("button");
+  botaoApagar.textContent = "×";
+  botaoApagar.className = "apagar";
+  botaoApagar.onclick = function() {
+    li.remove();
+  };
+
+  li.appendChild(span);
+  li.appendChild(botaoApagar);
+
+  document.getElementById("listaTarefas").appendChild(li);
+
+  input.value = "";
+}
+
+document.getElementById("novaTarefa").addEventListener("keypress", function(evento) {
+  if (evento.key === "Enter") {
+    adicionarTarefa();
+  }
+});
+</script>
+
+</body>
+      </html>
